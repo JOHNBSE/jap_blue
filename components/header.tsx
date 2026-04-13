@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState, useEffect } from "react"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -24,6 +25,45 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ]
 
+// ─── LOGO CONFIG ─────────────────────────────────────────────────────────────
+// Place your logo file in the /public folder, then set the path below.
+// Examples:
+//   "/logo.png"         → public/logo.png
+//   "/images/logo.svg"  → public/images/logo.svg
+//
+// Set LOGO_SRC to null to fall back to the original text "JAP" badge.
+const LOGO_SRC = "/logo.png"   // ← change this to your actual file path
+const LOGO_WIDTH = 160         // ← adjust to taste
+const LOGO_HEIGHT = 48         // ← adjust to taste
+// ─────────────────────────────────────────────────────────────────────────────
+
+function Logo() {
+  if (LOGO_SRC) {
+    return (
+      <Image
+        src={LOGO_SRC}
+        alt="JAP Transformative Action Research Center"
+        width={LOGO_WIDTH}
+        height={LOGO_HEIGHT}
+        className="h-10 w-auto object-contain"
+        priority
+      />
+    )
+  }
+
+  // Fallback: original text badge + name
+  return (
+    <>
+      <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
+        <span className="text-primary-foreground font-bold text-lg">JAP</span>
+      </div>
+      <span className="hidden sm:block font-semibold text-foreground text-sm leading-tight max-w-[200px]">
+        JAP Transformative<br />Action Research Center
+      </span>
+    </>
+  )
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -44,12 +84,17 @@ export function Header() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8" aria-label="Global">
+        {/* Logo */}
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
             <Logo />
           </Link>
+          <span className="hidden sm:block font-semibold text-foreground text-sm leading-tight max-w-[200px]">
+            JAP Transformative<br />Action Research Center
+          </span>
         </div>
         
+        {/* Mobile menu button */}
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -61,6 +106,7 @@ export function Header() {
           </button>
         </div>
 
+        {/* Desktop nav */}
         <div className="hidden lg:flex lg:gap-x-8">
           {navigation.map((item) => (
             <div 
@@ -94,6 +140,7 @@ export function Header() {
           ))}
         </div>
 
+        {/* CTA */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Button asChild className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
             <Link href="/contact">Partner With Us</Link>
@@ -106,10 +153,8 @@ export function Header() {
         <div className="fixed inset-0 bg-foreground/20 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
         <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-card px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-border">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">JAP</span>
-              </div>
+            <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
+              <Logo />
             </Link>
             <button
               type="button"
