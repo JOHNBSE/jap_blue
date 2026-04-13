@@ -46,12 +46,7 @@ export function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">JAP</span>
-            </div>
-            <span className="hidden sm:block font-semibold text-foreground text-sm leading-tight max-w-[200px]">
-              JAP Transformative<br />Action Research Center
-            </span>
+            <Logo />
           </Link>
         </div>
         
